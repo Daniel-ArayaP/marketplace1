@@ -4,6 +4,7 @@ import { Search } from '../../functions';
 
 import { CategoriesService } from '../../services/categories.service';
 import { SubCategoriesService } from '../../services/sub-categories.service';
+import { UsersService } from '../../services/users.service';
 
 declare var jQuery:any;
 declare var $:any;
@@ -19,8 +20,12 @@ export class HeaderComponent implements OnInit {
 	categories:Object = null;
 	arrayTitleList:Array<any> = [];
 	render:Boolean = true;
+	authValidate:boolean = false;
+	picture:string;
+	wishlist:number = 0;
 
-	constructor(private categoriesService: CategoriesService, private subCategoriesService: SubCategoriesService) { }
+	constructor(private categoriesService: CategoriesService, private subCategoriesService: SubCategoriesService,
+		private usersService: UsersService) { }
 
 	ngOnInit(): void {
 

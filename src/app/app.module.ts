@@ -99,7 +99,7 @@ import { AccountWishlistComponent } from './pages/account/account-profile/accoun
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    DataTablesModule,
+    DataTablesModule
     
   ],
   providers: [],

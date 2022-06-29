@@ -12,7 +12,7 @@ Exportamos el endPoint de la APIREST de Firebase
 =============================================*/
 export let Api = {
 
-	url: 'https://myterry-7de66.firebaseio.com' //YOUR FIREBASE ENDPOINT
+	url: 'https://myterry-7de66.firebaseio.com/' //YOUR FIREBASE ENDPOINT
 
 }
 
@@ -112,5 +112,5 @@ Exportamos el endPoint del servidor para administrar archivos
 
 export let Server = {
 
-	url:'http://localhost/marketplace/src/assets/img/index.php?key=AIzaSyBLzvJWNmftupZrSGNonM9phQAQU89arac'
+	url:'http://localhost/Prueba2/marketplace/src/assets/img/index.php?key=AIzaSyBLzvJWNmftupZrSGNonM9phQAQU89arac'
 }

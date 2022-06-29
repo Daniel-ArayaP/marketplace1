@@ -7,6 +7,7 @@ declare var $:any;
 
 import { CategoriesService } from '../../services/categories.service';
 import { SubCategoriesService } from '../../services/sub-categories.service';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-header-mobile',
@@ -20,8 +21,11 @@ export class HeaderMobileComponent implements OnInit {
 	categories:Object = null;
 	render:Boolean = true;
 	categoriesList:Array<any> = [];
+	authValidate:boolean = false;
+	picture:string;
 
-	constructor(private categoriesService: CategoriesService, private subCategoriesService: SubCategoriesService) { }
+	constructor(private categoriesService: CategoriesService, private subCategoriesService: SubCategoriesService,
+		private usersService: UsersService) { }
 
 	ngOnInit(): void {
 
