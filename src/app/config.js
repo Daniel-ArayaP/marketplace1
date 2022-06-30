@@ -5,7 +5,7 @@ export let Path = {
 
 	url: 'http://localhost:4200/assets/'
 
-}
+} 
 
 /*=============================================
 Exportamos el endPoint de la APIREST de Firebase
