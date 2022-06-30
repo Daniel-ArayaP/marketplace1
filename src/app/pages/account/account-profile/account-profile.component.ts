@@ -5,7 +5,7 @@ import { Path, Server } from '../../../config';
 import { Sweetalert, Tooltip } from '../../../functions';
 
 import { UsersService } from '../../../services/users.service';
-
+import { ActivatedRoute } from '@angular/router';
 declare var jQuery:any;
 declare var $:any;
 @Component({
@@ -26,13 +26,21 @@ export class AccountProfileComponent implements OnInit {
 	preload:boolean = false;
 	server:string = Server.url;
 	image:File = null;
+    accountUrl:string = null;
 
   constructor(private usersService: UsersService,
-    private http: HttpClient) { }
+    private http: HttpClient,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    this.preload = true;
+    
+		this.preload = true;
+
+		/*=============================================
+		Capturamos la Url de la página de cuentas
+		=============================================*/
+
+		this.accountUrl = this.activatedRoute.snapshot.params["param"];
 
 		/*=============================================
 		Validar si existe usuario autenticado
@@ -332,5 +340,3 @@ export class AccountProfileComponent implements OnInit {
     }
 
 }
-
-    
