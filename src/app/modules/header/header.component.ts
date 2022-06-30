@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Path } from '../../config';
-import { Search } from '../../functions';
+import { Search, DinamicPrice, Sweetalert } from '../../functions';
 
 import { CategoriesService } from '../../services/categories.service';
 import { SubCategoriesService } from '../../services/sub-categories.service';
 import { UsersService } from '../../services/users.service';
+import { ProductsService } from '../../services/products.service';
+
+
+import { Router } from '@angular/router';
 
 declare var jQuery:any;
 declare var $:any;
@@ -23,9 +27,13 @@ export class HeaderComponent implements OnInit {
 	authValidate:boolean = false;
 	picture:string;
 	wishlist:number = 0;
+	shoppingCart:any[] = [];
+	totalShoppingCart:number = 0;
+	renderShopping:boolean = true;
+	subTotal:string = `<h3>Sub Total:<strong class="subTotalHeader"><div class="spinner-border"></div></strong></h3>`;
 
 	constructor(private categoriesService: CategoriesService, private subCategoriesService: SubCategoriesService,
-		private usersService: UsersService) { }
+		private usersService: UsersService,private productsService: ProductsService,private router:Router) { }
 
 	ngOnInit(): void {
 
@@ -169,7 +177,83 @@ export class HeaderComponent implements OnInit {
 		}
 
 	}
+/*=============================================
+	Función que nos avisa cuando finaliza el renderizado de Angular
+	=============================================*/
+	
+	callbackShopping(){
 
+		if(this.renderShopping){
+
+			this.renderShopping = false;
+
+			/*=============================================
+			Sumar valores para el precio total
+			=============================================*/
+
+			let totalProduct = $(".ps-product--cart-mobile");
+
+			setTimeout(function(){
+
+				let price = $(".pShoppingHeader .end-price")
+				let quantity = $(".qShoppingHeader");
+				let shipping = $(".sShoppingHeader");
+
+				let totalPrice = 0;
+
+				for(let i = 0; i < price.length; i++){
+									
+					/*=============================================
+					Sumar precio con envío
+					=============================================*/
+
+					let shipping_price = Number($(price[i]).html()) + Number($(shipping[i]).html());
+					
+					totalPrice +=  Number($(quantity[i]).html() * shipping_price)
+		
+				}
+
+				$(".subTotalHeader").html(`$${totalPrice.toFixed(2)}`)
+
+			},totalProduct.length * 500)
+
+		}
+
+	}
+
+	/*=============================================
+	Función para remover productos de la lista de carrito de compras
+	=============================================*/
+
+	removeProduct(product, details){
+		
+		console.log("product", product);
+
+		if(localStorage.getItem("list")){
+
+			let shoppingCart = JSON.parse(localStorage.getItem("list"));
+
+			shoppingCart.forEach((list, index)=>{
+
+				if(list.product == product && list.details == details.toString()){
+
+					shoppingCart.splice(index, 1);
+					
+				}
+
+			})
+
+			 /*=============================================
+    		Actualizamos en LocalStorage la lista del carrito de compras
+    		=============================================*/
+
+    		localStorage.setItem("list", JSON.stringify(shoppingCart));
+
+    		Sweetalert.fnc("success", "product removed", this.router.url)
+
+		}
+
+	}
 
 
 }

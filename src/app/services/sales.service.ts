@@ -16,4 +16,16 @@ export class SalesService {
 		return this.http.get(`${this.api}sales.json`);
 
 	}
+
+/*=============================================
+	Registro en Firebase Database
+	=============================================*/
+
+	registerDatabase(body:object, idToken:string){
+
+		return this.http.post(`${this.api}/sales.json?auth=${idToken}`, body);
+
+	}
+
+
 }

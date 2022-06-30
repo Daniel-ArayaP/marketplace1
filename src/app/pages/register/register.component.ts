@@ -273,6 +273,8 @@ export class RegisterComponent implements OnInit {
         localUsersService.getFilterData("email", user.email)
         .subscribe(resp=>{
 
+          console.log(resp)
+
           if(Object.keys(resp).length > 0){
 
             Sweetalert.fnc("error", `You're already signed in, please login with ${resp[Object.keys(resp)[0]].method} method`, "login")
