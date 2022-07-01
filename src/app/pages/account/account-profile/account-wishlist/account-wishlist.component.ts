@@ -1,19 +1,20 @@
-import { Component, OnInit,Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+
 import { Path } from '../../../../config';
 
 import { DinamicPrice, Sweetalert } from '../../../../functions';
 
 import { UsersService } from '../../../../services/users.service';
 import { ProductsService } from '../../../../services/products.service';
-import { Router } from '@angular/router';
+
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import notie from 'notie';
 import { confirm } from 'notie';
 
 declare var jQuery:any;
 declare var $:any;
-
 
 @Component({
   selector: 'app-account-wishlist',
@@ -22,7 +23,7 @@ declare var $:any;
 })
 export class AccountWishlistComponent implements OnInit, OnDestroy {
 
-  @Input() childItem:any;
+	@Input() childItem:any;
 
 	path:string = Path.url;
 	wishlist:any[] = [];
@@ -36,10 +37,10 @@ export class AccountWishlistComponent implements OnInit, OnDestroy {
   popoverMessage:string = 'Are you sure to remove it?';
 
 	constructor(private usersService: UsersService,
-		        private productsService: ProductsService,private router:Router) { }
+		          private productsService: ProductsService,
+              private router:Router) { }
 
 	ngOnInit(): void {
-
 
 		/*=============================================
   	Agregamos opciones a DataTable

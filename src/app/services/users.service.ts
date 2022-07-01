@@ -2,44 +2,44 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import {Api, 
-  Register, 
-  Login, 
-  SendEmailVerification, 
-  ConfirmEmailVerification, 
-  GetUserData,
-  SendPasswordResetEmail,
-  VerifyPasswordResetCode,
-  ConfirmPasswordReset,
-    ChangePassword} from '../config';
+		Register, 
+		Login, 
+		SendEmailVerification, 
+		ConfirmEmailVerification, 
+		GetUserData,
+		SendPasswordResetEmail,
+		VerifyPasswordResetCode,
+		ConfirmPasswordReset,
+	    ChangePassword} from '../config';
 
 import { UsersModel } from '../models/users.model';
+import { ProductsService } from '../services/products.service';
 
 import { Sweetalert } from '../functions';
-import { ProductsService } from '../services/products.service';
 
 declare var jQuery:any;
 declare var $:any;
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  private api:string = Api.url;
-	private register:string = Register.url;
-  	private login:string = Login.url;
-  	private sendEmailVerification:string = SendEmailVerification.url;
-  	private confirmEmailVerification:string = ConfirmEmailVerification.url;
-  	private getUserData:string = GetUserData.url;
-  	private sendPasswordResetEmail:string = SendPasswordResetEmail.url;
-  	private verifyPasswordResetCode:string = VerifyPasswordResetCode.url;
-  	private confirmPasswordReset:string = ConfirmPasswordReset.url;
-  	private changePassword:string = ChangePassword.url;
 
+	private api:string = Api.url;
+	private register:string = Register.url;private login:string = Login.url;
+  private sendEmailVerification:string = SendEmailVerification.url;
+  private confirmEmailVerification:string = ConfirmEmailVerification.url;
+  private getUserData:string = GetUserData.url;
+  private sendPasswordResetEmail:string = SendPasswordResetEmail.url;
+  private verifyPasswordResetCode:string = VerifyPasswordResetCode.url;
+  private confirmPasswordReset:string = ConfirmPasswordReset.url;
+  private changePassword:string = ChangePassword.url;
+	
 
-  constructor(private http:HttpClient,private productsService: ProductsService) { }
+	constructor(private http:HttpClient,
+                private productsService: ProductsService) { }
 
-  /*=============================================
+	/*=============================================
 	Registro en Firebase Authentication
 	=============================================*/
 	
@@ -256,117 +256,64 @@ export class UsersService {
 			}else{
 
 				/*=============================================
-        		Traemos la lista de deseos que ya tenga el usuario
-        		=============================================*/
-        		this.getFilterData("idToken", localStorage.getItem("idToken"))
-        		.subscribe(resp=>{
+    		Traemos la lista de deseos que ya tenga el usuario
+    		=============================================*/
+    		this.getFilterData("idToken", localStorage.getItem("idToken"))
+    		.subscribe(resp=>{
 
-        			/*=============================================
-        			Capturamos el id del usuario
-        			=============================================*/
+    			/*=============================================
+    			Capturamos el id del usuario
+    			=============================================*/
 
-        			let id = Object.keys(resp).toString();
+    			let id = Object.keys(resp).toString();
 
-        			for(const i in resp){
-        			
-        				/*=============================================
-          				Pregutnamos si existe una lista de deseos
-          				=============================================*/
+    			for(const i in resp){
+    			
+    				/*=============================================
+      				Pregutnamos si existe una lista de deseos
+      				=============================================*/
 
-          				if(resp[i].wishlist != undefined){
+      				if(resp[i].wishlist != undefined){
 
-          					let wishlist = JSON.parse(resp[i].wishlist);
+      					let wishlist = JSON.parse(resp[i].wishlist);
 
-          					let length = 0;
+      					let length = 0;
 
-          					/*=============================================
-          					Pregutnamos si existe un producto en la lista de deseos
-          					=============================================*/
+      					/*=============================================
+      					Pregutnamos si existe un producto en la lista de deseos
+      					=============================================*/
 
-          					if(wishlist.length > 0){
+      					if(wishlist.length > 0){
 
-          						wishlist.forEach((list, index)=>{
+      						wishlist.forEach((list, index)=>{
 
-                					if(list == product){
+            					if(list == product){
 
-                						length --
-                					
-                					}else{
+            						length --
+            					
+            					}else{
 
-                						length ++
+            						length ++
 
-                					}
+            					}
 
-          						})
+      						})
 
-          						/*=============================================
-        						Preguntamos si no ha agregado este producto a la lista de deseos anteriormente
-            					=============================================*/ 
+      						/*=============================================
+    						Preguntamos si no ha agregado este producto a la lista de deseos anteriormente
+        					=============================================*/ 
 
-          						if(length != wishlist.length){
+      						if(length != wishlist.length){
 
-          							Sweetalert.fnc("error", "It already exists on your wishlist", null);
+      							Sweetalert.fnc("error", "It already exists on your wishlist", null);
 
-          						}else{
+      						}else{
 
-          							wishlist.push(product);
-
-          							let body = {
-
-		          						wishlist: JSON.stringify(wishlist)
-		          					}
-
-		          					this.patchData(id, body)
-		          					.subscribe(resp=>{
-
-		          						if(resp["wishlist"] != ""){
-
-                            let totalWishlist = Number($(".totalWishlist").html());
-                            
-                            $(".totalWishlist").html(totalWishlist+1); 
-
-		          							Sweetalert.fnc("success","Product added to wishlist", null);
-		          						}
-
-		          					})
-
-          						}
-
-          					}else{
-
-          						wishlist.push(product);
+      							wishlist.push(product);
 
       							let body = {
 
-	          						wishlist: JSON.stringify(wishlist)
-	          					}
-
-	          					this.patchData(id, body)
-	          					.subscribe(resp=>{
-
-	          						if(resp["wishlist"] != ""){
-
-                          let totalWishlist = Number($(".totalWishlist").html());
-                            
-                          $(".totalWishlist").html(totalWishlist+1); 
-
-	          							Sweetalert.fnc("success","Product added to wishlist", null);
-	          						}
-
-
-	          					})
-
-          					}
-
-          				/*=============================================
-         				Cuando no exista lista de deseos inicialmente
-          				=============================================*/
-
-          				}else{
-
-          					let body = {
-
-          						wishlist: `["${product}"]`
+          						wishlist: JSON.stringify(wishlist)
           					}
 
           					this.patchData(id, body)
@@ -375,7 +322,7 @@ export class UsersService {
           						if(resp["wishlist"] != ""){
 
                         let totalWishlist = Number($(".totalWishlist").html());
-                            
+                        
                         $(".totalWishlist").html(totalWishlist+1); 
 
           							Sweetalert.fnc("success","Product added to wishlist", null);
@@ -383,11 +330,64 @@ export class UsersService {
 
           					})
 
-          				}
+      						}
 
-          			}
+      					}else{
 
-        		})
+      						wishlist.push(product);
+
+  							let body = {
+
+        						wishlist: JSON.stringify(wishlist)
+        					}
+
+        					this.patchData(id, body)
+        					.subscribe(resp=>{
+
+        						if(resp["wishlist"] != ""){
+
+                      let totalWishlist = Number($(".totalWishlist").html());
+                        
+                      $(".totalWishlist").html(totalWishlist+1); 
+
+        							Sweetalert.fnc("success","Product added to wishlist", null);
+        						}
+
+
+        					})
+
+      					}
+
+      				/*=============================================
+     				Cuando no exista lista de deseos inicialmente
+      				=============================================*/
+
+      				}else{
+
+      					let body = {
+
+      						wishlist: `["${product}"]`
+      					}
+
+      					this.patchData(id, body)
+      					.subscribe(resp=>{
+
+      						if(resp["wishlist"] != ""){
+
+                    let totalWishlist = Number($(".totalWishlist").html());
+                        
+                    $(".totalWishlist").html(totalWishlist+1); 
+
+      							Sweetalert.fnc("success","Product added to wishlist", null);
+      						}
+
+      					})
+
+      				}
+
+      			}
+
+    		})
 
 			}
 
@@ -395,7 +395,7 @@ export class UsersService {
 
 	}
 
- /*=============================================
+    /*=============================================
     Función para agregar productos al carrito de compras
     =============================================*/
 
@@ -530,8 +530,4 @@ export class UsersService {
     
     }
 
-
-
 }
-
-

@@ -585,7 +585,6 @@ export let Quantity = {
             min = input.attr("min"),
             max = input.attr("max")
 
-
             btnUp.click(function(){
 
                 var oldValue = parseInt(input.val());
@@ -729,7 +728,21 @@ export let Sweetalert = {
               })
               Swal.showLoading()
 
-            break; 
+            break;
+
+            case "html":
+
+            Swal.fire({
+                allowOutsideClick: false,
+                title: 'Click to continue with the payment...',
+                icon: 'info',
+                html:text,
+                showConfirmButton: false,
+                showCancelButton: true,
+                cancelButtonColor: '#d33'
+            })
+
+            break;
 
             case "close":
 
@@ -756,7 +769,6 @@ export let Tooltip = {
     }
 
 }
-
 
 /*=============================================
 Paypal
@@ -825,3 +837,4 @@ export let Paypal = {
 }
 
 
+ 

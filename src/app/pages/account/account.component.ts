@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { UsersService } from '../../services/users.service';
 
 @Component({
@@ -8,17 +9,19 @@ import { UsersService } from '../../services/users.service';
 })
 export class AccountComponent implements OnInit {
 
-  constructor(private usersService: UsersService) { }
+  	constructor(private usersService: UsersService) { }
 
-  ngOnInit(): void {
-    this.usersService.authActivate().then(resp =>{
+  	ngOnInit(): void {
+
+   		this.usersService.authActivate().then(resp =>{
    			
-      if(!resp){
+   			if(!resp){
 
-        window.open("login", "_top")
+   				window.open("login", "_top")
 
-      }
-    })
-  }
+   			}
+   		})
+
+  	}
 
 }

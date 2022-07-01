@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import  { NgForm,FormsModule } from '@angular/forms';
-//import * as firebase from "firebase/app";
+import  { NgForm } from '@angular/forms';
+import firebase from "firebase/compat/app";
 import "firebase/auth";
 
 import { Capitalize, Sweetalert } from '../../functions';
@@ -9,12 +9,9 @@ import { UsersModel } from '../../models/users.model';
 
 import { UsersService  } from '../../services/users.service';
 
-import 'firebase/compat/auth';
-
-import firebase from 'firebase/compat/app';
-
 declare var jQuery:any;
 declare var $:any;
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,14 +19,14 @@ declare var $:any;
 })
 export class RegisterComponent implements OnInit {
 
-  user: UsersModel;
+	user: UsersModel;
 
-  constructor(private usersService: UsersService) {
-    this.user = new UsersModel();
-   }
+	constructor(private usersService: UsersService){ 
 
-  ngOnInit(): void {
+		this.user = new UsersModel();
+	}
 
+	ngOnInit(): void {
 
     /*=============================================
     Validar formulario de Bootstrap 4
@@ -210,16 +207,16 @@ export class RegisterComponent implements OnInit {
     =============================================*/
 
      // Your web app's Firebase configuration
-    const firebaseConfig = {
+     const firebaseConfig = {
       apiKey: "AIzaSyBLzvJWNmftupZrSGNonM9phQAQU89arac",
-			authDomain: "myterry-35c54.firebaseapp.com",
-			databaseURL: "https://myterry-35c54.firebaseio.com",
-			projectId: "myterry-35c54",
-			storageBucket: "myterry-35c54.appspot.com",
-			messagingSenderId: "152736898252",
-			appId: "1:152736898252:web:79bfa5038d88e2579b7669",
-			measurementId: "G-558RF00GLX"
-    }
+      authDomain: "myterry-35c54.firebaseapp.com",
+      databaseURL: "https://myterry-35c54.firebaseio.com",
+      projectId: "myterry-35c54",
+      storageBucket: "myterry-35c54.appspot.com",
+      messagingSenderId: "152736898252",
+      appId: "1:152736898252:web:79bfa5038d88e2579b7669",
+      measurementId: "G-558RF00GLX"
+    };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
@@ -273,8 +270,6 @@ export class RegisterComponent implements OnInit {
         localUsersService.getFilterData("email", user.email)
         .subscribe(resp=>{
 
-          console.log(resp)
-
           if(Object.keys(resp).length > 0){
 
             Sweetalert.fnc("error", `You're already signed in, please login with ${resp[Object.keys(resp)[0]].method} method`, "login")
@@ -321,16 +316,16 @@ export class RegisterComponent implements OnInit {
     =============================================*/
 
      // Your web app's Firebase configuration
-    const firebaseConfig = {
+     const firebaseConfig = {
       apiKey: "AIzaSyBLzvJWNmftupZrSGNonM9phQAQU89arac",
-			authDomain: "myterry-35c54.firebaseapp.com",
-			databaseURL: "https://myterry-35c54.firebaseio.com",
-			projectId: "myterry-35c54",
-			storageBucket: "myterry-35c54.appspot.com",
-			messagingSenderId: "152736898252",
-			appId: "1:152736898252:web:79bfa5038d88e2579b7669",
-			measurementId: "G-558RF00GLX"
-    }
+      authDomain: "myterry-35c54.firebaseapp.com",
+      databaseURL: "https://myterry-35c54.firebaseio.com",
+      projectId: "myterry-35c54",
+      storageBucket: "myterry-35c54.appspot.com",
+      messagingSenderId: "152736898252",
+      appId: "1:152736898252:web:79bfa5038d88e2579b7669",
+      measurementId: "G-558RF00GLX"
+    };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);

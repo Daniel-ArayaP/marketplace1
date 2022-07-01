@@ -8,11 +8,11 @@ import {Api} from '../config';
 })
 export class OrdersService {
 
-  private api:string = Api.url;
+	private api:string = Api.url;
 
-  constructor(private http:HttpClient) { }
+  	constructor(private http:HttpClient) { }
 
-/*=============================================
+  	/*=============================================
 	Registro en Firebase Database
 	=============================================*/
 
@@ -33,8 +33,3 @@ export class OrdersService {
 	}
 
 }
-
-
-
-
-

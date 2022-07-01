@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UsersService } from '../../../services/users.service';
+
 @Component({
   selector: 'app-account-breadcrumb',
   templateUrl: './account-breadcrumb.component.html',
@@ -8,12 +9,11 @@ import { UsersService } from '../../../services/users.service';
 })
 export class AccountBreadcrumbComponent implements OnInit {
 
-  displayName:string;
+	displayName:string;
 
-  constructor(private usersService: UsersService) { }
+	constructor(private usersService: UsersService) { }
 
-  ngOnInit(): void {
-
+	ngOnInit(): void {
 
 		/*=============================================
 		Validar si existe usuario autenticado
@@ -51,4 +51,3 @@ export class AccountBreadcrumbComponent implements OnInit {
 	}
 
 }
-

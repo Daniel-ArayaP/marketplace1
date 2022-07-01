@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import  { NgForm, FormsModule } from '@angular/forms';
-//import * as firebase from "firebase/app";
+import  { NgForm } from '@angular/forms';
+import firebase from "firebase/compat/app";
 import "firebase/auth";
 
 import { Sweetalert } from '../../functions';
@@ -11,17 +11,8 @@ import { UsersService  } from '../../services/users.service';
 
 import { ActivatedRoute } from '@angular/router';
 
-import { FacebookAuthProvider, AuthCredential } from "firebase/auth";
-
-import 'firebase/compat/auth';
-
-import 'firebase/compat/firestore';
-import firebase from 'firebase/compat/app';
-
-
 declare var jQuery:any;
 declare var $:any;
-
 
 @Component({
   selector: 'app-login',
@@ -30,20 +21,19 @@ declare var $:any;
 })
 export class LoginComponent implements OnInit {
 
-  user: UsersModel;
+	user: UsersModel;
 	rememberMe:boolean = false;
-	
 
-  constructor(private usersService: UsersService,
-    private activatedRoute: ActivatedRoute) { 
+	constructor(private usersService: UsersService,
+				private activatedRoute: ActivatedRoute) {
 
-    this.user = new UsersModel();
-  }
-    
+		this.user = new UsersModel();
 
-  ngOnInit(): void {
+	}
 
-    /*=============================================
+	ngOnInit(): void {
+
+		/*=============================================
 		Validar acción de recordar credencial de correo
 		=============================================*/
 
@@ -398,7 +388,7 @@ export class LoginComponent implements OnInit {
 			messagingSenderId: "152736898252",
 			appId: "1:152736898252:web:79bfa5038d88e2579b7669",
 			measurementId: "G-558RF00GLX"
-		}
+		  };
 
 		// Initialize Firebase
 		firebase.initializeApp(firebaseConfig);
@@ -539,7 +529,7 @@ export class LoginComponent implements OnInit {
 			messagingSenderId: "152736898252",
 			appId: "1:152736898252:web:79bfa5038d88e2579b7669",
 			measurementId: "G-558RF00GLX"
-		}
+		  };
 
 		// Initialize Firebase
 		firebase.initializeApp(firebaseConfig);

@@ -7,7 +7,7 @@ import { Api } from '../config';
 })
 export class SalesService {
 
-	private api:String = Api.url;
+	private api:string = Api.url;
 
   	constructor(private http:HttpClient) { }
 
@@ -17,7 +17,7 @@ export class SalesService {
 
 	}
 
-/*=============================================
+	/*=============================================
 	Registro en Firebase Database
 	=============================================*/
 
@@ -26,6 +26,4 @@ export class SalesService {
 		return this.http.post(`${this.api}/sales.json?auth=${idToken}`, body);
 
 	}
-
-
 }

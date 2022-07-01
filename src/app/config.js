@@ -5,14 +5,17 @@ export let Path = {
 
 	url: 'http://localhost:4200/assets/'
 
-} 
+	//Cuando necestiemos trabajar con certificado SSL (registro o ingreso con facebook)
+	// url: 'https://localhost:4200/assets/'
+
+}
 
 /*=============================================
 Exportamos el endPoint de la APIREST de Firebase
 =============================================*/
 export let Api = {
 
-	url: 'https://myterry-7de66.firebaseio.com/' //YOUR FIREBASE ENDPOINT
+	url: 'https://myterry-35c54.firebaseio.com/' // YOUR FIREBASE ENDPOINT
 
 }
 
@@ -112,7 +115,7 @@ Exportamos el endPoint del servidor para administrar archivos
 
 export let Server = {
 
-	url:'http://localhost/Prueba2/marketplace/src/assets/img/index.php?key=AIzaSyBLzvJWNmftupZrSGNonM9phQAQU89arac'
+	url:'http://localhost/test1/market1/src/assets/img/index.php?key=AIzaSyBLzvJWNmftupZrSGNonM9phQAQU89arac'
 }
 
 /*=============================================

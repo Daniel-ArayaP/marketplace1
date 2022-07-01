@@ -5,9 +5,12 @@ import { Path, Server } from '../../../config';
 import { Sweetalert, Tooltip } from '../../../functions';
 
 import { UsersService } from '../../../services/users.service';
+
 import { ActivatedRoute } from '@angular/router';
+
 declare var jQuery:any;
 declare var $:any;
+
 @Component({
   selector: 'app-account-profile',
   templateUrl: './account-profile.component.html',
@@ -15,7 +18,7 @@ declare var $:any;
 })
 export class AccountProfileComponent implements OnInit {
 
-  path:string = Path.url;
+	path:string = Path.url;
 	vendor:boolean = false;
 	displayName:string;
 	username:string;
@@ -26,14 +29,15 @@ export class AccountProfileComponent implements OnInit {
 	preload:boolean = false;
 	server:string = Server.url;
 	image:File = null;
-    accountUrl:string = null;
+	accountUrl:string = null;
 
-  constructor(private usersService: UsersService,
-    private http: HttpClient,private activatedRoute:ActivatedRoute) { }
 
-  ngOnInit(): void {
+	constructor(private usersService: UsersService,
+				private http: HttpClient,
+				private activatedRoute:ActivatedRoute) { }
 
-    
+	ngOnInit(): void {
+
 		this.preload = true;
 
 		/*=============================================

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NgForm } from '@angular/forms';
 
 import { Path, Payu, MercadoPago  } from '../../config';
@@ -29,7 +28,7 @@ declare var $:any;
 })
 export class CheckoutComponent implements OnInit {
 
-  path:string = Path.url;
+	path:string = Path.url;
 	user: UsersModel;
 	id:string = null;
 	saveAddress:boolean = false;
@@ -45,18 +44,19 @@ export class CheckoutComponent implements OnInit {
 	addInfo:string = "";
 	validateCoupon:boolean = false;
 
-  constructor(private router:Router,
-    private usersService:UsersService,
-    private productsService: ProductsService,
-    private ordersService:OrdersService,
-    private salesService: SalesService,
-    private storesService: StoresService,
-    private activatedRoute:ActivatedRoute) {
-      this.user = new UsersModel();
-     }
+	constructor(private router:Router,
+				private usersService:UsersService,
+				private productsService: ProductsService,
+				private ordersService:OrdersService,
+				private salesService: SalesService,
+				private storesService: StoresService,
+				private activatedRoute:ActivatedRoute ) {
 
-  ngOnInit(): void {
+		this.user = new UsersModel();
 
+	}
+
+	ngOnInit(): void {
 
 		/*=============================================
   		Validar la existencia de un cupón de la tienda

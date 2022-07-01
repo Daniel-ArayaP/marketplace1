@@ -44,14 +44,15 @@ import { VendorStoreComponent } from './pages/product/product-left/vendor-store/
 import { ReviewsComponent } from './pages/product/product-left/reviews/reviews.component';
 import { SimilarBoughtComponent } from './pages/product/similar-bought/similar-bought.component';
 import { RelatedProductComponent } from './pages/product/related-product/related-product.component';
+import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AccountComponent } from './pages/account/account.component';
-import { LoginComponent } from './pages/login/login.component';
 import { AccountBreadcrumbComponent } from './pages/account/account-breadcrumb/account-breadcrumb.component';
 import { AccountProfileComponent } from './pages/account/account-profile/account-profile.component';
 import { AccountWishlistComponent } from './pages/account/account-profile/account-wishlist/account-wishlist.component';
-import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { AccountMyShoppingComponent } from './pages/account/account-profile/account-my-shopping/account-my-shopping.component';
 
 
 @NgModule({
@@ -89,22 +90,25 @@ import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.compo
     ReviewsComponent,
     SimilarBoughtComponent,
     RelatedProductComponent,
+    LoginComponent,
     RegisterComponent,
     AccountComponent,
-    LoginComponent,
     AccountBreadcrumbComponent,
     AccountProfileComponent,
     AccountWishlistComponent,
+    ShoppingCartComponent,
     CheckoutComponent,
-    ShoppingCartComponent
+    AccountMyShoppingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    DataTablesModule
-    
+    DataTablesModule,
+    ConfirmationPopoverModule.forRoot({
+        confirmButtonType:'danger'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

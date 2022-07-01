@@ -1,6 +1,6 @@
-
-
-<div class="ps-product--detail ps-product--fullwidth">
+<div 
+*ngIf="!preload"
+class="ps-product--detail ps-product--fullwidth">
 
 	<!--=====================================
 	Product Header
@@ -112,14 +112,82 @@
 
             </div>
 
-            <div class="ps-product__variations">
-            
-                <div [innerHTML]="p.specification"></div>
-               
+            <div class="ps-product__variations" [attr.specification]="p.specification">
+
+               <!--  <figure>
+                    
+                    <figcaption>Color: <strong>Choose an option</strong></figcaption>
+
+                    <div class="d-flex">
+                        
+                        <div
+                        class="rounded-circle mr-3 border"
+                        data-toggle="tooltip" title="Black"
+                        style="background-color:black; width:30px; height:30px; cursor:pointer"></div>
+
+                        <div
+                        class="rounded-circle mr-3 border"
+                        data-toggle="tooltip" title="White"
+                        style="background-color:white; width:30px; height:30px; cursor:pointer"></div>
+
+                        <div
+                        class="rounded-circle mr-3 border"
+                        data-toggle="tooltip" title="Blue"
+                        style="background-color:blue; width:30px; height:30px; cursor:pointer"></div>
+
+                    </div>
+
+                </figure>
+
+                 <figure>
+                    
+                    <figcaption>Size: <strong>Choose an option</strong></figcaption>
+
+                    <div class="d-flex">
+                        
+                        <div
+                        class="py-2 px-3 mr-3 border"
+                        data-toggle="tooltip" title="S"
+                        style="cursor:pointer">S</div>
+
+                        <div
+                        class="py-2 px-3 mr-3 border"
+                        data-toggle="tooltip" title="M"
+                        style="cursor:pointer">M</div>
+
+                        <div
+                        class="py-2 px-3 mr-3 border"
+                        data-toggle="tooltip" title="L"
+                        style="cursor:pointer">L</div>
+
+                    </div>
+
+                </figure>
+
+                <figure>
+                    
+                    <figcaption>Model: <strong>Choose an option</strong></figcaption>
+
+                    <div class="d-flex">
+                        
+                        <div
+                        class="py-2 px-3 mr-3 border"
+                        data-toggle="tooltip" title="1st generation"
+                        style="cursor:pointer">1st generation</div>
+
+                        <div
+                        class="py-2 px-3 mr-3 border"
+                        data-toggle="tooltip" title="2nd generation"
+                        style="cursor:pointer">2nd generation</div>
+
+                    </div>
+
+                </figure> -->
+             
             </div>
 
             <div 
-            *ngIf="p.offer != ''"
+            *ngIf="p.offer != '' && offer"
             class="ps-product__countdown">
 
                 <figure>
@@ -172,27 +240,27 @@
 
                     <div class="form-group--number quantity">
 
-                        <button class="up">
+                        <button class="up" (click)="changeQuantity(quantity.value, 1, 'up')">
                         	<i class="fa fa-plus"></i>
                         </button>
 
-                        <button class="down">
+                        <button class="down" (click)="changeQuantity(quantity.value, 1, 'down')">
                         	<i class="fa fa-minus"></i>
                         </button>
 
-                        <input class="form-control px-5" type="number" value="1" min="1" max="9" step="1">
+                        <input class="form-control px-5" type="number" value="1" min="1" max="9" step="1" #quantity (change)="changeQuantity(quantity.value, 0, null)">
 
                     </div>
 
                 </figure>
 
-                <a class="ps-btn ps-btn--black" href="#">Add to cart</a>
+                <a class="ps-btn ps-btn--black" style="cursor:pointer" (click)="addShoppingCart(p.url, 1, [])">Add to cart</a>
 
-                <a class="ps-btn" href="#">Buy Now</a>
+                <a class="ps-btn" style="cursor:pointer" (click)="buyNow(p.url, 1, [])">Buy Now</a>
 
                 <div class="ps-product__actions">
 
-                	<a href="#">
+                	<a style="cursor:pointer" (click)="addWishlist(p.url)">
                 		<i class="icon-heart"></i>
                 	</a>
 
@@ -342,5 +410,17 @@
     </div><!--  End product content -->
 
 </div>
+
+<!--=====================================
+Preload
+======================================-->
+<div
+*ngIf="preload"
+class="d-flex justify-content-center">
+    
+    <div class="spinner-border text-muted my-5"></div>
+
+</div>
+
 
 

@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Path } from '../../config';
 import { Search, DinamicPrice, Sweetalert } from '../../functions';
 
-declare var jQuery:any;
-declare var $:any;
-
 import { CategoriesService } from '../../services/categories.service';
 import { SubCategoriesService } from '../../services/sub-categories.service';
-import { UsersService } from '../../services/users.service';
 import { ProductsService } from '../../services/products.service';
-
+import { UsersService } from '../../services/users.service';
 
 import { Router } from '@angular/router';
+
+declare var jQuery:any;
+declare var $:any;
 
 @Component({
   selector: 'app-header-mobile',
@@ -21,10 +20,10 @@ import { Router } from '@angular/router';
 
 export class HeaderMobileComponent implements OnInit {
 
-	path:String = Path.url;	
-	categories:Object = null;
-	render:Boolean = true;
-	categoriesList:Array<any> = [];
+	path:string = Path.url;	
+	categories:object = null;
+	render:boolean = true;
+	categoriesList:any[] = [];
 	authValidate:boolean = false;
 	picture:string;
 	shoppingCart:any[] = [];
@@ -32,10 +31,50 @@ export class HeaderMobileComponent implements OnInit {
 	renderShopping:boolean = true;
 	subTotal:string = `<h3>Sub Total:<strong class="subTotalHeader"><div class="spinner-border"></div></strong></h3>`;
 
-	constructor(private categoriesService: CategoriesService, private subCategoriesService: SubCategoriesService,
-		private usersService: UsersService,private productsService: ProductsService,private router:Router) { }
+	constructor(private categoriesService: CategoriesService, 
+				private subCategoriesService: SubCategoriesService,
+				private productsService: ProductsService,
+				private usersService: UsersService,
+				private router:Router) { }
 
 	ngOnInit(): void {
+
+		/*=============================================
+		Validar si existe usuario autenticado
+		=============================================*/
+		this.usersService.authActivate().then(resp =>{
+
+			if(resp){
+
+				this.authValidate = true;
+
+				this.usersService.getFilterData("idToken", localStorage.getItem("idToken"))
+				.subscribe(resp=>{
+
+					for(const i in resp){
+
+						if(resp[i].picture != undefined){
+
+							if(resp[i].method != "direct"){
+
+								this.picture = `<img src="${resp[i].picture}" class="img-fluid rounded-circle ml-auto">`;
+							
+							}else{
+
+								this.picture = `<img src="assets/img/users/${resp[i].username.toLowerCase()}/${resp[i].picture}" class="img-fluid rounded-circle ml-auto">`;
+							}
+
+						}else{
+
+							this.picture = `<i class="icon-user"></i>`;
+						}
+
+					}
+
+				})
+			}
+
+		})
 
 		/*=============================================
 		Tomamos la data de las categorías
@@ -74,13 +113,102 @@ export class HeaderMobileComponent implements OnInit {
 
 		})
 
+		/*=============================================
+		Tomamos la data del Carrito de Compras del LocalStorage
+		=============================================*/
+
+		if(localStorage.getItem("list")){
+
+			let list = JSON.parse(localStorage.getItem("list"));
+
+			this.totalShoppingCart = list.length;
+
+			/*=============================================
+			Recorremos el arreglo del listado
+			=============================================*/
+			
+			for(const i in list){
+
+				/*=============================================
+				Filtramos los productos del carrito de compras
+				=============================================*/
+
+				this.productsService.getFilterData("url", list[i].product)
+				.subscribe(resp=>{
+					
+					for(const f in resp){
+
+						let details = `<div class="list-details small text-secondary">`
+
+						if(list[i].details.length > 0){
+
+							let specification = JSON.parse(list[i].details);	
+
+							for(const i in specification){
+
+								let property = Object.keys(specification[i]);
+
+								for(const f in property){
+
+									details += `<div>${property[f]}: ${specification[i][property[f]]}</div>`
+								}
+
+							}
+
+						}else{
+
+							/*=============================================
+							Mostrar los detalles por defecto del producto 
+							=============================================*/
+
+							if(resp[f].specification != ""){
+
+								let specification = JSON.parse(resp[f].specification);
+
+								for(const i in specification){
+
+									let property = Object.keys(specification[i]).toString();
+
+									details += `<div>${property}: ${specification[i][property][0]}</div>`
+
+								}
+
+							}
+
+						}
+
+						details += `</div>`;
+
+						this.shoppingCart.push({
+
+							url:resp[f].url,
+							name:resp[f].name,
+							category:resp[f].category,
+							image:resp[f].image,
+							delivery_time:resp[f].delivery_time,
+							quantity:list[i].unit,
+							price: DinamicPrice.fnc(resp[f])[0],
+							shipping:Number(resp[f].shipping)*Number(list[i].unit),
+							details:details,
+							listDetails:list[i].details
+
+						})
+
+					}
+
+				})
+			
+			}
+
+		}
+
 	}
 
 	/*=============================================
 	Declaramos función del buscador
 	=============================================*/
 
-	goSearch(search:String){
+	goSearch(search:string){
 
 		if(search.length == 0 || Search.fnc(search) == undefined){
 
@@ -168,7 +296,6 @@ export class HeaderMobileComponent implements OnInit {
 
 	}
 
-
 	/*=============================================
 	Función que nos avisa cuando finaliza el renderizado de Angular
 	=============================================*/
@@ -244,6 +371,5 @@ export class HeaderMobileComponent implements OnInit {
 		}
 
 	}
-
 
 }

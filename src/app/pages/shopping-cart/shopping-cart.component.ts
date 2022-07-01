@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
+
 import { Path } from '../../config';
 import { DinamicPrice, Quantity, Sweetalert } from '../../functions';
 
@@ -11,9 +12,6 @@ import { Router } from '@angular/router';
 import notie from 'notie';
 import { confirm } from 'notie';
 
-
-
-
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
@@ -21,8 +19,7 @@ import { confirm } from 'notie';
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy  {
 
-
-  path:string = Path.url;
+	path:string = Path.url;
 	shoppingCart:any[] = [];
 	totalShoppingCart:number = 0;
 	render:boolean = true;
@@ -32,12 +29,12 @@ export class ShoppingCartComponent implements OnInit, OnDestroy  {
 	dtTrigger: Subject<any> = new Subject();
 	popoverMessage:string = 'Are you sure to remove it?';
 
+	constructor(private productsService: ProductsService,
+				private router:Router) { }
 
-  constructor(private productsService: ProductsService,
-    private router:Router) { }
+	ngOnInit(): void {
 
-  ngOnInit(): void {
-  /*=============================================
+		/*=============================================
 	  	Agregamos opciones a DataTable
 	  	=============================================*/
 

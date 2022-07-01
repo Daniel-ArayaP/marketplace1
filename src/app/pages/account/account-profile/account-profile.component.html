@@ -1,4 +1,4 @@
-<!--=====================================
+ <!--=====================================
 Profile
 ======================================--> 
 
@@ -115,12 +115,22 @@ Wishlist
 ======================================-->
 
 <app-account-wishlist
-*ngIf="!preload"
+*ngIf="!preload && accountUrl == undefined"
 [childItem]="id"
 ></app-account-wishlist>
 
 <!--=====================================
-MODAL PARA ESCRIBIR LA NUEVA CONTRASEÃ‘A
+My Shopping
+======================================-->
+
+<app-account-my-shopping
+*ngIf="!preload && accountUrl == 'my-shopping'"
+[childItem]="username"
+></app-account-my-shopping>
+
+
+<!--=====================================
+MODAL PARA ESCRIBIR LA NUEVA CONTRASEÑA
 ======================================-->
 
 <div class="modal" id="newPassword">
