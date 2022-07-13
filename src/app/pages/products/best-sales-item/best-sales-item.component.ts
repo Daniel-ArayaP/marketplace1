@@ -164,6 +164,8 @@ export class BestSalesItemComponent implements OnInit {
 
 		let url = this.router.url;
 
+		console.log("url", url);
+
 		let item = {
 		
 			product: product,
@@ -171,6 +173,8 @@ export class BestSalesItemComponent implements OnInit {
 			details: details,
 			url:url
 		}
+
+		console.log("item", item);
 
 		this.usersService.addSoppingCart(item);
 

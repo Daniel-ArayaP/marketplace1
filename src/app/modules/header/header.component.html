@@ -176,6 +176,12 @@
                                     *ngFor="let product of shoppingCart; let lastShopping = last"
                                     class="ps-product--cart-mobile">
 
+                                    <div class="ps-product__thumbnail">
+                                        <a href="#">
+                                            <img src="{{path}}img/products/clothing/7.jpg" >
+                                        </a>
+                                    </div>
+
                                         <div class="ps-product__thumbnail">
                                         	<a href="product/{{product.url}}">
                                         		<img src="{{path}}img/products/{{product.category}}/{{product.image}}" >

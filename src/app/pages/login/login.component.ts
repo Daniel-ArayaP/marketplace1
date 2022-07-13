@@ -589,6 +589,8 @@ export class LoginComponent implements OnInit {
 							localUsersService.patchData(id, body)
 							.subscribe(resp=>{
 
+								console.log(resp)
+
 								/*=============================================
 								Almacenamos el Token de seguridad en el localstorage
 								=============================================*/

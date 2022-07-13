@@ -177,7 +177,7 @@ export class HeaderComponent implements OnInit {
 									details += `<div>${property}: ${specification[i][property][0]}</div>`
 
 								}
-
+  
 							}
 
 						}

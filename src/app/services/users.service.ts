@@ -493,7 +493,8 @@ export class UsersService {
             =============================================*/
 
             if(count == arrayList.length){
-                     
+				console.log("arrayList", arrayList.length);
+                     console.log("count", count);
                 arrayList.push(item);
 
             }else{
